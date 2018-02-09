@@ -39,6 +39,7 @@ app.set('view engine', 'ejs')
  */ 
 var index = require('./routes/index')
 var users = require('./routes/users')
+var posts = require('./routes/posts')
 
 
 /**
@@ -108,7 +109,7 @@ app.use(flash())
 var path = require('path');
 app.use(express.static(path.resolve('./public')));
 
-app.use('/', users)
+app.use('/',posts)
 app.use('/users', users)
 
 app.listen(3000, function(){
