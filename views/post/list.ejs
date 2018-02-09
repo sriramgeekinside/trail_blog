@@ -1,0 +1,48 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include ../layouts/header.ejs %>
+ 
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+ 
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>    
+<div class="content">
+    <div class="wrap">
+        <div id="main" role="main">
+                <ul id="tiles">
+                        <% if (data) { %>
+                            <% data.forEach(function(post){ %>
+                                <li onclick="location.href='single-page.html';">
+                                    <img src="images/<%= post.thumbnail%>"class="img-rounded">
+                                    <div class="post-info">
+                                        <div class="post-basic-info">
+                                            <h3><a href="#"><%= post.title %></a></h3>
+                                            <span><a href="#"><label> </label>Movies</a></span>
+                                            <p><%= post.short_description %></p>
+                                        </div>
+                                        <div class="post-info-rate-share">
+                                            <div class="rateit">
+                                                <span> </span>
+                                            </div>
+                                            <div class="post-share">
+                                                <span> </span>
+                                            </div>
+                                            <div class="clear"> </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            <% }) %>
+                        <% } %>
+                        </ul>
+        </div>
+    </div>
+</div>
+ 
+<!--
+including footer content which is common for all pages
+-->
+<%- include ../layouts/footer.ejs %>
