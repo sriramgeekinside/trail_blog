@@ -1,5 +1,5 @@
 {
-  "name": "crud-mysql",
+  "name": "Nodejs practice",
   "version": "1.0.0",
   "description": "Node.js CRUD application using MySQL",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "crud",
     "mysql"
   ],
-  "author": "Mukesh Chapagain",
+  "author": "Sriram",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.2",

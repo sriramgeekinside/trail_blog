@@ -16,7 +16,7 @@ including header content which is common for all pages
                 <ul id="tiles">
                         <% if (data) { %>
                             <% data.forEach(function(post){ %>
-                                <li onclick="location.href='single-page.html';">
+                                <li onclick="location.href='/post/<%= post.id %>';">
                                     <img src="images/<%= post.thumbnail%>"class="img-rounded">
                                     <div class="post-info">
                                         <div class="post-basic-info">
