@@ -110,7 +110,7 @@ var path = require('path');
 app.use(express.static(path.resolve('./public')));
 
 app.use('/',posts)
-app.use('/users', users)
+app.use('/admin', users)
 
 app.listen(3000, function(){
 	console.log('Server running at port 3000: http://127.0.0.1:3000')
