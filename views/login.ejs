@@ -1,55 +1,38 @@
-<!--
-including header content which is common for all pages
--->
-<%- include ./layouts/header.ejs %>
-
-    <% if (messages.error) { %>
-        <p style="color:red">
-            <%- messages.error %>
-        </p>
-        <% } %>
-
-            <% if (messages.success) { %>
-                <p style="color:green">
-                    <%- messages.success %>
-                </p>
-                <% } %>
-
-                    <div class="content">
-                        <div class="wrap">
-                            <div class="single-page">
-                        
-                                <!---start-login-section-->
-                                <div class="comment-section">
-                                    <div class="grids_of_2">
-                                        <h2>Login</h2>
-                                        <div class="artical-commentbox">
-                                            <div class="table-form">
-                                                <form action="/admin/authenticate" method="post" name="post_comment">
-                                                    <div>
-                                                        <label>Name
-                                                            
-                                                        </label>
-                                                        <input type="text" value="" name="username">
-                                                    </div>
-                                                    <div>
-                                                        <label>Password
-                                                           
-                                                        </label>
-                                                        <input type="password" value="" name="password">
-                                                    </div>
-                                                    <input type="submit" value="submit">
-                                                </form>
-                                            </div>
-                                            <div class="clear"> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!---//End-comments-section-->
-                            </div>
-                        </div>
-
-                        <!--
-including footer content which is common for all pages
--->
-                        <%- include ./layouts/footer.ejs %>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Admin credentials</h4>
+        </div>
+        <form action="" method="post">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Username</label>
+              <div>
+                <input type="text" class="form-control" name="username">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Password</label>
+              <div>
+                <input type="password" class="form-control" name="password">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+      </div>
+  
+    </div>
+  </div>

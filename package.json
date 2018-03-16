@@ -1,10 +1,10 @@
 {
-  "name": "Nodejs practice",
+  "name": "simple_blog",
   "version": "1.0.0",
   "description": "Node.js CRUD application using MySQL",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "keywords": [
     "node",
@@ -14,6 +14,7 @@
   "author": "Sriram",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.6",
