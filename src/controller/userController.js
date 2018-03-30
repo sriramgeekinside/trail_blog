@@ -19,7 +19,7 @@ exports.login = function (req, res) {
 exports.authenticate = function (req, response) {
     var user = req.body;
             var sql = "select * from users where email='"+user.username+"'";
-            console.log(sql);
+            //console.log(sql);
             req.getConnection(function(error, conn) {    
             conn.query(sql, function (err, result) {
                 if (err) {
@@ -60,3 +60,23 @@ exports.store = function (req, res) {
         });
     });
 };
+exports.dashboard = function(req,res){
+    req.getConnection(function(error, conn) {
+		conn.query('SELECT * FROM posts ORDER BY id DESC',function(err, rows, fields) {
+            //if(err) throw err
+			if (err) {
+				req.flash('error', err)
+				res.render('user/list', {
+					title: 'User List', 
+					data: ''
+				})
+			} else {
+				// render to views/user/list.ejs template file
+				res.render('post/list', {
+					title: app_name + 'Admin portal', 
+					data: rows
+				})
+			}
+		})
+	})
+}
