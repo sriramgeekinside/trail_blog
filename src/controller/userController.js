@@ -3,6 +3,7 @@ var request = require('request');
 var bcrypt = require('bcrypt');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var fs = require('fs');
 var app = express();
 app.use(cookieParser());
 app.use(session({secret: "Shh, its a secret!",resave: true,saveUninitialized: true}));
@@ -79,4 +80,50 @@ exports.dashboard = function(req,res){
 			}
 		})
 	})
+}
+exports.new_post = function (req, res) { 
+    // var str = '<p>fgngtynty tgnytmnj fghnty6 hr4t5 grfth5ty trju ytjytmn gtj6tykjty trjhrh<img alt="" src="/uploads/562377_374359389278412_1622862912_n.jpg" style="height:800px; width:718px" /></p>';
+    // var regex = /<img.*?src="(.*?)"/;
+    // var src = regex.exec(str);
+    // console.log(src[1]);
+    res.render('admin/new_post', {
+        title: app_name + 'Make a new post'
+    })
+};
+exports.uploads = function(req,res) {
+    fs.readFile(req.files.upload.path, function (err, data) {
+        //var newPath = __dirname + '/../public/uploads/' + req.files.upload.name;
+        var newPath ='./public/uploads/' + req.files.upload.name;
+        fs.writeFile(newPath, data, function (err) {
+            if (err) console.log({err: err});
+            else {
+                //var url ="/uploader/" + req.files.upload.name 
+                html = "";
+                html += "<script type='text/javascript'>";
+                html += "    var funcNum = " + req.query.CKEditorFuncNum + ";";
+                html += "    var url     = \"/uploads/" + req.files.upload.name + "\";";
+                html += "    var message = \"Uploaded file successfully\";";
+                html += "";
+                html += "window.parent.CKEDITOR.tools.callFunction(funcNum, url, message);";
+                html += "</script>";
+                res.send(html);
+            }
+        });
+    });
+}
+exports.store_post = function(req,res,next){
+    var post = req.body;
+    str = post.description;
+    var regex = /<img.*?src="(.*?)"/;
+    var src = regex.exec(str);
+    var thumbnail = null;
+    if(src.length>1)
+        thumbnail = src[1];
+    var sql = "INSERT INTO posts (title,short_description,description,thumbnail) VALUES ('"+post.title+"','"+post.short_description+"', '"+post.description+"', '"+thumbnail+"')";
+            req.getConnection(function(error, conn) {    
+            conn.query(sql, function (err, result) {
+                if (err) throw err;   
+                res.redirect('/');
+            });
+        });
 }

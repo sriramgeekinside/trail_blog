@@ -17,7 +17,7 @@ including header content which is common for all pages
                         <% if (data) { %>
                             <% data.forEach(function(post){ %>
                                 <li onclick="location.href='/post/<%= post.id %>';">
-                                    <img src="images/<%= post.thumbnail%>"class="img-rounded">
+                                    <img src="<%= post.thumbnail%>" class="img-rounded">
                                     <div class="post-info">
                                         <div class="post-basic-info">
                                             <h3><a href="#"><%= post.title %></a></h3>
