@@ -111,7 +111,7 @@ exports.uploads = function(req,res) {
         });
     });
 }
-exports.store_post = function(req,res,next){
+exports.store_post = function(req,res,next) {
     var post = req.body;
     str = post.description;
     var regex = /<img.*?src="(.*?)"/;
@@ -119,11 +119,52 @@ exports.store_post = function(req,res,next){
     var thumbnail = null;
     if(src.length>1)
         thumbnail = src[1];
-    var sql = "INSERT INTO posts (title,short_description,description,thumbnail) VALUES ('"+post.title+"','"+post.short_description+"', '"+post.description+"', '"+thumbnail+"')";
+    var sql = "INSERT INTO posts (title,short_description,description,thumbnail) VALUES ('"+post.title.replace(/'/g, "\\'")+"','"+post.short_description.replace(/'/g, "\\'")+"', '"+post.description.replace(/'/g, "\\'")+"', '"+thumbnail+"')";
             req.getConnection(function(error, conn) {    
             conn.query(sql, function (err, result) {
-                if (err) throw err;   
+                if (err) throw err; 
+                req.flash('success', "Post added");  
                 res.redirect('/');
             });
         });
 }
+exports.edit_post = function(req, res) {
+	var id = req.params.id; 
+	req.getConnection(function(error, conn) {
+		conn.query('SELECT * FROM posts where id ='+id,function(err, rows, fields) {
+            //if(err) throw err
+			if (err) {
+				req.flash('error', err)
+				res.render('user/list', {
+					title: 'User List', 
+					data: ''
+				})
+			} else {
+				// render to views/user/list.ejs template file
+				res.render('admin/edit_post', {
+					title: app_name + rows[0].title, 
+					data: rows[0]
+				})
+			}
+		})
+	})
+};
+exports.updatePost = function(req, res) {
+    var post = req.body;
+    str = post.description;
+    var regex = /<img.*?src="(.*?)"/;
+    var src = regex.exec(str);
+    var thumbnail = null;
+    if(src.length>1)
+        thumbnail = src[1];
+	req.getConnection(function(error, conn) {
+        var sql = "update posts set title='"+post.title.replace(/'/g, "\\'")+"',short_description='"+post.short_description.replace(/'/g, "\\'")+"',description='"+post.description.replace(/'/g, "\\'")+"',thumbnail='"+thumbnail+"' where id='"+post.id+"'";
+        req.getConnection(function(error, conn) {    
+            conn.query(sql, function (err, result) {
+                if (err) throw err; 
+                req.flash('success', "Post updated");  
+                res.redirect('/');
+            });
+        });
+	})
+};

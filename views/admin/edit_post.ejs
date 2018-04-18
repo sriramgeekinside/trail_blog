@@ -1,0 +1,57 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include ../layouts/header.ejs %>
+
+    <% if (messages.error) { %>
+        <p style="color:red">
+            <%- messages.error %>
+        </p>
+        <% } %>
+
+            <% if (messages.success) { %>
+                <p style="color:green">
+                    <%- messages.success %>
+                </p>
+                <% } %>
+
+                    <div class="content">
+                        <div class="wrap">
+                            <div class="single-page">
+                                <form action="/admin/edit-post" method="post">
+                                    <div>
+                                    <input type="hidden" name="id" class="form-control" value="<%= data.id %>">
+                                        <label>Title</label>
+                                    <input type="text" name="title" class="form-control" value="<%= data.title %>">
+                                    </div>
+                                
+                                        <div>
+                                                <label>Short description</label>
+                                <textarea class="form-control" name="short_description"><%= data.short_description %></textarea>
+                                </div>
+                                <div>
+                                    <label>Description</label>
+                                <textarea name="description">
+                                    <%= data.description %>
+                                </textarea>
+                                </div>
+                                <div class="pull-right post-btn">
+                                    <input type="submit" class="btn btn-info">
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!--
+including footer content which is common for all pages
+-->                     <script src="/ckeditor/ckeditor.js"></script>
+                        <script src="/ckeditor/config.js"></script>
+                        <script>
+                            CKEDITOR.replace('description', {
+                                //extraPlugins: 'imageuploader',
+                                filebrowserUploadUrl : "/uploader?type=Images&responseType=json&_token=",
+                                // "extraPlugins": "imagebrowser",
+                                // "imageBrowser_listUrl": "/uploader"
+                            });
+                        </script>
+                        <%- include ../layouts/footer.ejs %>
