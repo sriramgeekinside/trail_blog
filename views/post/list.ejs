@@ -31,9 +31,11 @@ including header content which is common for all pages
                                             <div class="post-share">
                                                 <span> </span>
                                             </div>
+                                            <% if(typeof session_user == 'object' && session_user) { %>
                                             <div class="post-share">
                                                     <a href="/admin/edit-post/<%= post.id %>">Edit</a>
-                                                </div>
+                                            </div>
+                                            <% } %>
                                             <div class="clear"> </div>
                                         </div>
                                     </div>

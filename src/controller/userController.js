@@ -13,27 +13,27 @@ const someOtherPlaintextPassword = 'not_bacon';
 var app_name = "Red leaf | "
 exports.login = function (req, res) { 
     // render to views/login.ejs template file
+    //console.log(req.headers.referer);
     res.render('login', {
         title: app_name + 'Login'
     })
 };
 exports.authenticate = function (req, response) {
     var user = req.body;
-            var sql = "select * from users where email='"+user.username+"'";
+            var sql = "select * from users where email='"+user.username+"' OR name='"+user.username+"'";
             //console.log(sql);
             req.getConnection(function(error, conn) {    
             conn.query(sql, function (err, result) {
                 if (err) {
-                    console.log(err);
                     res.redirect('/admin/login');
                 }
                 else{
                     req.session.user = result[0]; 
                     bcrypt.compare(user.password,result[0].password, function(err, res) {
-                        if(res) {
-                            response.redirect('/');
-                           } else {
-                            console.log(err);
+                        if (err) throw err;
+                        else {
+                            session_user = req.session.user;
+                            response.redirect(referer_url);
                            } 
                     }); 
                 }

@@ -18,7 +18,7 @@ exports.allPosts = function(req, res) {
 				// render to views/user/list.ejs template file
 				res.render('post/list', {
 					title: app_name + 'Virtual movie', 
-					data: rows
+					data: rows,
 				})
 			}
 		})
